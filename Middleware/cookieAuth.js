@@ -13,7 +13,7 @@ const cookieAuthToken = async(req,res,next)=>{
     next();
    } catch (error) {
     res.clearCookie('token');
-    console.log("er");
+    console.log("br");
    }
 }
 

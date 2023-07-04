@@ -1,5 +1,7 @@
 const User = require("../Models/userModel");
 const jwt = require("jsonwebtoken");
+const authToken = require("../config/authToken")
+
 const registerUser = async(req,res)=>{
     const{name,email,password,mobile} = req.body;
     if(!name||!email||!password||!mobile){
@@ -25,7 +27,7 @@ const registerUser = async(req,res)=>{
             name:user.name,
             email:user.email,
             mobile:user.mobile,
-            // token: generateToken(user._id),
+        
 
         });
     }
@@ -35,33 +37,20 @@ const registerUser = async(req,res)=>{
     }
 
 }
-// const authUser = async()=>{
-//     const{email,password} = req.body;
-//     const user = User.findOne({email});
-
-//     if(user && (await user.matchPassword(password))){
-//         // navigate("/aboutUser");
-//         const token = await user.generateAuthToken();
-//         console.log(token);
-//     }
-//     else{
-//         throw new Error("invalid password or email");
-//     }
-// }
 const authUser = async(req,res)=>{
     const{email,password} = req.body.data;
    //  console.log(email);
     const user = await User.findOne({email});
       
     if(user &&(await user.matchPassword(password))){
-        let token = await user.generateAuthToken();
+        let token = await authToken(user._id);
         //    console.log(token);
-           res.cookie("GYM_TOKEN",token,{
-            maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds
-            httpOnly: true, // Ensures the cookie is only accessible via HTTP(S) requests, not client-side JavaScript
-            secure: true, // Set this to true if using HTTPS
-            sameSite: 'strict' // Restricts the cookie to be sent only in same-site requests
-           });
+        //    res.cookie("GYM_TOKEN",token,{
+        //     maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds
+        //     httpOnly: true, // Ensures the cookie is only accessible via HTTP(S) requests, not client-side JavaScript
+        //     secure: true, // Set this to true if using HTTPS
+        //     sameSite: 'strict' // Restricts the cookie to be sent only in same-site requests
+        //    });
        //if user is found
        res.status(201).json({
            _id:user._id,
@@ -69,7 +58,7 @@ const authUser = async(req,res)=>{
            email:user.email,
            mobile:user.mobile,
         //    pic:user.pic,
-           // token: generateToken(user._id),
+           token: token,
 
        })
    
