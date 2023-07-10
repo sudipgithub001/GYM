@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const authToken = require("../config/authToken")
 
 const registerUser = async(req,res)=>{
-    const{name,email,password,mobile} = req.body;
+    const{name,email,password,mobile,pic} = req.body;
     if(!name||!email||!password||!mobile){
         res.status(400);
         throw new Error("please enter all the fields");
@@ -20,6 +20,7 @@ const registerUser = async(req,res)=>{
         email,
         password,
         mobile,
+        pic,
     })
     if(user){
         res.status(201).json({
@@ -27,6 +28,7 @@ const registerUser = async(req,res)=>{
             name:user.name,
             email:user.email,
             mobile:user.mobile,
+            pic:user.pic,
         
 
         });

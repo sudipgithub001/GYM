@@ -23,6 +23,10 @@ const userSchema = mongoose.Schema({
         type:Number,
         required:true,
     },
+    pic:{
+        type: String , 
+        default:"no pic"
+    },
     token:
         {
             type:String,
