@@ -12,7 +12,7 @@ const User = require("./Models/userModel")
 // const { default: AboutUser } = require("../FRONTEND/src/components/aboutUser");
 app.use(cookieParser());
 // app.use(cors());
-app.use(cors({ credentials: true, origin: 'https://excellencefitness2.netlify.app' }));
+app.use(cors({ credentials: true, origin: 'https://excellencefitness.netlify.app' }));
 // app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 
 dotenv.config();
