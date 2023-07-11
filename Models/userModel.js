@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
     },
     pic:{
         type: String , 
-        default:"no pic"
+        default:"https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
     },
     token:
         {
